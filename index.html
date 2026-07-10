@@ -63,12 +63,20 @@ input:focus,textarea:focus,button:focus{outline:2px solid var(--cyan);outline-of
 .seg.hit.t3{background:var(--t3);border-color:var(--t3)}
 .youare{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:0 0 4px}
 .tiername{font-size:36px;margin:2px 0 10px}
+.legend{margin:14px 0 4px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.legend .lrow{display:flex;gap:10px;padding:9px 14px;font-size:13px;border-bottom:1px solid var(--line);background:#FBFDFF}
+.legend .lrow:last-child{border-bottom:0}
+.legend .lrow.cur{background:var(--soft)}
+.legend .lname{font-family:"Source Serif 4",Georgia,serif;font-weight:600;width:104px;flex:none;color:var(--navy)}
+.legend .ldef{color:var(--slate)}
 .barrow{display:flex;align-items:center;gap:10px;margin:7px 0}
 .barlabel{width:150px;font-size:12.5px;color:var(--slate);text-align:right;flex:none}
-.bartrack{flex:1;height:14px;background:var(--pg);border-radius:7px;overflow:hidden;border:1px solid var(--line)}
-.barfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .6s ease}
-.barfill.hi{background:linear-gradient(90deg,#3FA776,var(--ok))}
-.barfill.lo{background:linear-gradient(90deg,#D9B25F,var(--amber))}
+.bartrack{flex:1;display:flex;gap:4px}
+.barcell{flex:1;height:14px;border-radius:4px;background:var(--pg);border:1px solid var(--line)}
+.barcell.f{background:linear-gradient(90deg,var(--cyan),var(--blue));border-color:var(--blue)}
+.barcell.f.hi{background:linear-gradient(90deg,#3FA776,var(--ok));border-color:var(--ok)}
+.barcell.f.lo{background:linear-gradient(90deg,#D9B25F,var(--amber));border-color:var(--amber)}
+.chartnote{color:var(--slate);font-size:12px;margin:10px 0 0}
 .bartag{width:64px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;flex:none}
 .bartag.hi{color:var(--ok)} .bartag.lo{color:var(--amber)}
 .disclaimer{color:var(--slate);font-size:12.5px;font-style:italic;margin-top:18px}
@@ -76,7 +84,7 @@ input:focus,textarea:focus,button:focus{outline:2px solid var(--cyan);outline-of
 .goalreflect{background:var(--soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:14.5px}
 footer{background:var(--navy);color:#B9C4D6;margin-top:40px;padding:26px 20px;font-size:13px;text-align:center}
 footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:16px;margin:0 0 4px}
-@media(max-width:560px){.card{padding:20px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}.barlabel{width:104px;font-size:11px}.bartag{width:50px}}
+@media(max-width:560px){.card{padding:20px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}.barlabel{width:104px;font-size:11px}.bartag{width:50px}.legend .lname{width:84px}}
 </style>
 </head>
 <body>
@@ -85,7 +93,7 @@ footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:1
 <div class="brand"><img src="https://foundationaiadvisory.com/assets/global-header-logo-wordmark.png" alt="Foundation AI Advisory"></div>
 <p class="eyebrow" style="text-align:center">Self-assessment · About 3 minutes</p>
 <h1 style="text-align:center">Find out where you stand with AI</h1>
-<p class="dek" style="text-align:center">Thirteen quick questions about how AI fits into your work today and what you want to do next. In about three minutes, you&rsquo;ll receive one of four personalized AI-adoption profiles, along with a practical next step.</p>
+<p class="dek" style="text-align:center">Thirteen quick questions about how AI fits into your work today and what you want to do next. In about three minutes, you&rsquo;ll receive one of four personalized AI-adoption profiles — from taking first steps to fully integrating AI into how you work — along with a practical next step.</p>
 <p class="dek" style="text-align:center;font-size:13.5px">Enter your email at the end to reveal and receive your result.</p>
 <div style="text-align:center;margin-top:6px"><button id="btn-start">Start the assessment &rarr;</button></div>
 </div></div></section>
@@ -110,10 +118,11 @@ footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:1
 <p class="youare" style="text-align:center">Your AI-adoption profile</p>
 <p class="tiername" id="r-tier" style="text-align:center"></p>
 <div class="spectrum" id="r-spectrum"></div>
-<p style="color:var(--slate);font-size:12px;margin:6px 0 16px;text-align:center">Observer &rarr; Explorer &rarr; Operator &rarr; Integrator</p>
-<p id="r-desc" style="font-size:15.5px"></p>
+<div class="legend" id="r-legend"></div>
+<p id="r-desc" style="font-size:15.5px;margin-top:16px"></p>
 <h2 style="font-size:18px;margin-top:22px">Your profile at a glance</h2>
 <div id="r-bars"></div>
+<p class="chartnote">Each bar reflects one of your answers on a 0&ndash;3 scale &mdash; a snapshot of what you told us, not a diagnostic measurement.</p>
 <div class="goalreflect" id="r-goal" style="display:none"></div>
 <h2 style="font-size:18px;margin-top:22px">A practical next step</h2>
 <p id="r-next" style="font-size:14.5px"></p>
@@ -154,6 +163,7 @@ Observer:{desc:"AI isn’t part of your regular work yet — and that’s a clea
 Explorer:{desc:"You’ve started using AI in real work — occasionally or in a narrow lane. The gap between you and heavier users isn’t talent; it’s repeatability.",next:"Choose one recurring task and run it with AI five times, refining your approach each round. Repetition is what turns experiments into capability.",cta:"Find a practical use case"},
 Operator:{desc:"AI is genuinely working for you — regular use, multiple use cases, and habits that get results. You’re getting real leverage from these tools.",next:"Take your single best prompt or approach and turn it into a saved, reusable asset — a template, a configured assistant, a documented workflow. That’s the step from using AI to operating a system.",cta:"Turn a task into a workflow"},
 Integrator:{desc:"You’re systematically embedding AI into how work gets done — repeatable workflows, configured tools, and ways of working built around it. You’re creating leverage, not just using it.",next:"Inventory what you’ve built and who or what depends on it. Systematized AI use is an asset — and it deserves the same care as any system: documentation, review, and a plan to scale it responsibly.",cta:"Scale AI responsibly"}};
+var TIER_DEFS={Observer:"AI is not yet part of regular work.",Explorer:"Experimenting with occasional or narrow uses.",Operator:"Using AI regularly, effectively, and repeatably.",Integrator:"Systematically embedding AI into workflows, tools, and ways of working."};
 var GOAL_REFLECT={A:"getting better results on individual tasks",B:"creating repeatable workflows for your own work",C:"building tools or automations other people can use",D:"redesigning how a team or business operates",E:null};
 var state={answers:new Array(11).fill(null),q12:null,q13:null,email:null,idem:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)),source:new URLSearchParams(location.search).get("utm_source")||"direct",saved:false};
 var qlist=document.getElementById("qlist");
@@ -172,17 +182,15 @@ document.getElementById("btn-continue").onclick=function(){var fm=null;state.ans
 function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);}
 document.getElementById("btn-reveal").onclick=function(){var em=document.getElementById("email").value.trim();if(!validEmail(em)){document.getElementById("email-err").style.display="block";return;}document.getElementById("email-err").style.display="none";state.email=em;renderResult();show("scr-result");submitLead();};
 document.getElementById("r-cta2").onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
-function renderResult(){var r=FAAScoring.scoreSubmission(state.answers,state.q12,state.q13);state.result=r;document.getElementById("r-tier").textContent=r.tier_public;var idx=FAAScoring.TIERS.indexOf(r.tier_public);document.getElementById("r-spectrum").innerHTML=FAAScoring.TIERS.map(function(t,i){return '<div class="seg'+(i===idx?' hit t'+i:'')+'"><span class="nm">'+t+'</span></div>';}).join("");var c=TIER_COPY[r.tier_public];document.getElementById("r-desc").textContent=c.desc;document.getElementById("r-next").textContent=c.next;var cta=document.getElementById("r-cta");cta.textContent=c.cta+" →";cta.onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
+function renderResult(){var r=FAAScoring.scoreSubmission(state.answers,state.q12,state.q13);state.result=r;document.getElementById("r-tier").textContent=r.tier_public;var idx=FAAScoring.TIERS.indexOf(r.tier_public);document.getElementById("r-spectrum").innerHTML=FAAScoring.TIERS.map(function(t,i){return '<div class="seg'+(i===idx?' hit t'+i:'')+'"><span class="nm">'+t+'</span></div>';}).join("");
+document.getElementById("r-legend").innerHTML=FAAScoring.TIERS.map(function(tn){return '<div class="lrow'+(tn===r.tier_public?' cur':'')+'"><span class="lname">'+tn+(tn===r.tier_public?' ◂':'')+'</span><span class="ldef">'+TIER_DEFS[tn]+'</span></div>';}).join("");
+var c=TIER_COPY[r.tier_public];document.getElementById("r-desc").textContent=c.desc;document.getElementById("r-next").textContent=c.next;var cta=document.getElementById("r-cta");cta.textContent=c.cta+" →";cta.onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
 var scored=QUESTIONS.map(function(q,i){return{dim:q.dim,v:state.answers[i]};});
-var sorted=scored.slice().sort(function(a,b){return b.v-a.v;});
-var hiDims=sorted.filter(function(s){return s.v>=2;}).slice(0,2).map(function(s){return s.dim;});
-var loDim=sorted[sorted.length-1].v<2?sorted[sorted.length-1].dim:null;
 document.getElementById("r-bars").innerHTML=scored.map(function(s){
- var pct=Math.max(8,s.v/3*100);var cls="";var tag="";
- if(hiDims.indexOf(s.dim)!==-1){cls=" hi";tag='<span class="bartag hi">Strength</span>';}
- else if(s.dim===loDim){cls=" lo";tag='<span class="bartag lo">Focus</span>';}
- else{tag='<span class="bartag"></span>';}
- return '<div class="barrow"><span class="barlabel">'+s.dim+'</span><div class="bartrack"><div class="barfill'+cls+'" style="width:'+pct+'%"></div></div>'+tag+'</div>';
+var cls=s.v===3?" hi":(s.v<=1?" lo":"");
+var tag=s.v===3?'<span class="bartag hi">Strength</span>':(s.v<=1?'<span class="bartag lo">Focus</span>':'<span class="bartag"></span>');
+var cells="";for(var cc=0;cc<3;cc++){cells+='<div class="barcell'+(cc<s.v?' f'+cls:'')+'"></div>';}
+return '<div class="barrow"><span class="barlabel">'+s.dim+'</span><div class="bartrack">'+cells+'</div>'+tag+'</div>';
 }).join("");
 var g=GOAL_REFLECT[state.q13];var gr=document.getElementById("r-goal");if(g){gr.style.display="block";gr.innerHTML="You’re currently an <b>"+r.tier_public+"</b>, and your next goal is <b>"+g+"</b>. That’s exactly the right kind of gap to work on.";}else gr.style.display="none";}
 function payload(){return{idempotency_id:state.idem,email:state.email,submitted_at:new Date().toISOString(),answers:state.answers,answer_labels:QUESTIONS.map(function(q,i){return q.dim+": "+q.opts[state.answers[i]];}),q12_governance:state.q12,next_goal:state.q13,total_score:state.result.total_score,tier_public:state.result.tier_public,flags:state.result.flags,quiz_version:FAAScoring.QUIZ_VERSION,source:state.source};}
