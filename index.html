@@ -70,7 +70,7 @@ input:focus,textarea:focus,button:focus{outline:2px solid var(--cyan);outline-of
 .legend .lname{font-family:"Source Serif 4",Georgia,serif;font-weight:600;width:104px;flex:none;color:var(--navy)}
 .legend .ldef{color:var(--slate)}
 .barrow{display:flex;align-items:center;gap:10px;margin:7px 0}
-.barlabel{width:150px;font-size:12.5px;color:var(--slate);text-align:right;flex:none}
+.barlabel{width:176px;font-size:12.5px;color:var(--slate);text-align:right;flex:none}
 .bartrack{flex:1;display:flex;gap:4px}
 .barcell{flex:1;height:14px;border-radius:4px;background:var(--pg);border:1px solid var(--line)}
 .barcell.f.hi{background:linear-gradient(90deg,#3FA776,var(--ok));border-color:var(--ok)}
@@ -84,7 +84,7 @@ input:focus,textarea:focus,button:focus{outline:2px solid var(--cyan);outline-of
 .goalreflect{background:var(--soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:14.5px}
 footer{background:var(--navy);color:#B9C4D6;margin-top:40px;padding:26px 20px;font-size:13px;text-align:center}
 footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:16px;margin:0 0 4px}
-@media(max-width:560px){.card{padding:20px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}.barlabel{width:104px;font-size:11px}.bartag{width:50px}.legend .lname{width:84px}}
+@media(max-width:560px){.card{padding:20px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}.barlabel{width:116px;font-size:10.5px}.bartag{width:50px}.legend .lname{width:84px}}
 </style>
 </head>
 <body>
@@ -164,6 +164,7 @@ Explorer:{desc:"You’ve started using AI in real work — occasionally or in a 
 Operator:{desc:"AI is genuinely working for you — regular use, multiple use cases, and habits that get results. You’re getting real leverage from these tools.",next:"Take your single best prompt or approach and turn it into a saved, reusable asset — a template, a configured assistant, a documented workflow. That’s the step from using AI to operating a system.",cta:"Turn a task into a workflow",url:"https://foundationaiadvisory.com/operations/"},
 Integrator:{desc:"You’re systematically embedding AI into how work gets done — repeatable workflows, configured tools, and ways of working built around it. You’re creating leverage, not just using it.",next:"Inventory what you’ve built and who or what depends on it. Systematized AI use is an asset — and it deserves the same care as any system: documentation, review, and a plan to scale it responsibly.",cta:"Scale AI responsibly",url:"https://foundationaiadvisory.com/agentic-ai/"}};
 var TIER_DEFS={Observer:"AI is not yet part of regular work.",Explorer:"Experimenting with occasional or narrow uses.",Operator:"Using AI regularly, effectively, and repeatably.",Integrator:"Systematically embedding AI into workflows, tools, and ways of working."};
+var DIM_LABELS={"Frequency":"How often you use AI","Breadth":"Range of uses","Integration":"Built into your work","Iteration":"Working through problems","Context":"What you give the AI","Tooling":"Tools & features","Building for others":"Building for others","Tool selection":"Choosing the right tool","Output handling":"Checking the output","Systematization":"Reusing what works","Capability expansion":"Taking on new things"};
 var GOAL_REFLECT={A:"getting better results on individual tasks",B:"creating repeatable workflows for your own work",C:"building tools or automations other people can use",D:"redesigning how a team or business operates",E:null};
 var state={answers:new Array(11).fill(null),q12:null,q13:null,email:null,idem:(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)),source:new URLSearchParams(location.search).get("utm_source")||"direct",saved:false};
 var qlist=document.getElementById("qlist");
@@ -190,7 +191,7 @@ document.getElementById("r-bars").innerHTML=scored.map(function(s){
 var cls=s.v===3?" hi":(s.v===2?" mid":" lo");
 var tag=s.v===3?'<span class="bartag hi">Strength</span>':(s.v<=1?'<span class="bartag lo">Focus</span>':'<span class="bartag"></span>');
 var cells="";for(var cc=0;cc<3;cc++){cells+='<div class="barcell'+(cc<s.v?' f'+cls:'')+'"></div>';}
-return '<div class="barrow"><span class="barlabel">'+s.dim+'</span><div class="bartrack">'+cells+'</div>'+tag+'</div>';
+return '<div class="barrow"><span class="barlabel">'+(DIM_LABELS[s.dim]||s.dim)+'</span><div class="bartrack">'+cells+'</div>'+tag+'</div>';
 }).join("");
 var g=GOAL_REFLECT[state.q13];var gr=document.getElementById("r-goal");if(g){gr.style.display="block";gr.innerHTML="You’re currently an <b>"+r.tier_public+"</b>, and your next goal is <b>"+g+"</b>. That’s exactly the right kind of gap to work on.";}else gr.style.display="none";}
 function payload(){return{idempotency_id:state.idem,email:state.email,submitted_at:new Date().toISOString(),answers:state.answers,answer_labels:QUESTIONS.map(function(q,i){return q.dim+": "+q.opts[state.answers[i]];}),q12_governance:state.q12,next_goal:state.q13,total_score:state.result.total_score,tier_public:state.result.tier_public,flags:state.result.flags,quiz_version:FAAScoring.QUIZ_VERSION,source:state.source};}
