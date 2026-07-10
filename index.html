@@ -4,76 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Where Do You Stand With AI? — Foundation AI Advisory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#16243A;--ink2:#22334E;--slate:#4A5A73;--mist:#EFF2F6;--line:#D7DEE8;--paper:#FFFFFF;--brass:#9A7B32;--brass-soft:#F4EEDD;--t1:#8A94A6;--t2:#B8892E;--t3:#2E6DB4;--t4:#2E7D5B}
+:root{--navy:#1B2A41;--navy2:#22334E;--slate:#4A5A73;--pg:#F3F7FB;--line:#DDE6EF;--paper:#FFFFFF;
+ --blue:#2E6DB4;--cyan:#2BA3DC;--soft:#EAF3FA;--ok:#2E7D5B;--amber:#B8892E;
+ --t0:#8A94A6;--t1:#B8892E;--t2:#2E6DB4;--t3:#2E7D5B}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--mist);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:0 16px}
-.topstrip{background:var(--ink);color:#C9D2E0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:9px 20px;text-align:center}
-.topstrip b{color:#fff}
-h1{font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:clamp(26px,5vw,38px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
-h2{font-family:Georgia,serif;font-weight:500;font-size:22px;margin:0 0 8px}
-.eyebrow{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin:0 0 10px}
-.dek{color:var(--slate);font-size:17px;margin:0 0 8px}
-.screen{display:none;padding:36px 0 60px}
+body{margin:0;background:var(--pg);color:var(--navy);font:15.5px/1.55 "Inter",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+h1,h2,.tiername{font-family:"Source Serif 4",Georgia,'Times New Roman',serif;font-weight:600;color:var(--navy)}
+h1{font-size:clamp(26px,5vw,36px);line-height:1.15;margin:14px 0 12px}
+h2{font-size:21px;margin:0 0 8px}
+.brand{display:flex;justify-content:center;padding:6px 0 2px}
+.brand img{height:46px}
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:0 0 4px}
+.dek{color:var(--slate);font-size:16px;margin:0 0 10px}
+.screen{display:none;padding:34px 0 60px}
 .screen.active{display:block}
-.card{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--ink);padding:24px 26px;margin:0 0 18px}
-.qcard .qnum{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin:0 0 6px}
-.qcard .qtext{font-size:17px;font-weight:600;margin:0 0 14px;line-height:1.4}
+.card{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--cyan);border-radius:14px;
+ box-shadow:0 10px 30px rgba(27,42,65,.08);padding:26px 28px;margin:0 0 18px}
+.qcard .qnum{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:0 0 6px}
+.qcard .qtext{font-size:16.5px;font-weight:600;margin:0 0 14px;line-height:1.4}
 .qcard.unanswered-flag{border-color:#C0392B;border-top-color:#C0392B;background:#FDF6F5}
-.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:3px;padding:12px 14px;margin:8px 0;cursor:pointer;background:#FDFEFF;transition:background .12s,border-color .12s}
-.opt:hover{background:var(--mist)}
-.opt.selected{border-color:var(--ink);background:#EDF2F9;box-shadow:inset 3px 0 0 var(--ink)}
-.opt input{margin-top:3px;accent-color:var(--ink);flex:none}
-.opt span{font-size:15px}
-button{font:inherit;font-size:15px;padding:12px 22px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;border-radius:3px}
-button:hover{background:var(--ink2)}
-button.ghost{background:var(--paper);color:var(--ink)}
-button.ghost:hover{background:var(--mist)}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;cursor:pointer;background:#FBFDFF;transition:all .12s}
+.opt:hover{background:var(--soft);border-color:var(--cyan)}
+.opt.selected{border-color:var(--blue);background:var(--soft);box-shadow:inset 3px 0 0 var(--blue)}
+.opt input{margin-top:3px;accent-color:var(--blue);flex:none}
+.opt span{font-size:14.5px}
+button{font:inherit;font-size:15px;font-weight:600;padding:12px 24px;border:1px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;border-radius:10px;transition:background .12s}
+button:hover{background:var(--navy2)}
+button.ghost{background:var(--paper);color:var(--navy)}
+button.ghost:hover{background:var(--soft)}
 button:disabled{opacity:.45;cursor:not-allowed}
-.progressbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line);padding:10px 16px;display:none}
+.progressbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(4px);border-bottom:1px solid var(--line);padding:10px 16px;display:none}
 .progressbar.active{display:block}
-.progressbar .inner{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.progressbar .count{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.08em;color:var(--ink)}
-.ptrack{flex:1;height:6px;background:var(--mist);border-radius:3px;overflow:hidden}
-.pfill{height:100%;width:0%;background:var(--brass);transition:width .25s}
-.notice{background:var(--brass-soft);border-left:4px solid var(--brass);padding:12px 16px;margin:14px 0;font-size:14px}
+.progressbar .inner{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.progressbar .count{font-size:12px;font-weight:600;color:var(--navy);white-space:nowrap}
+.segs{flex:1;display:flex;gap:4px}
+.segs i{flex:1;height:6px;border-radius:3px;background:var(--line);transition:background .2s}
+.segs i.on{background:var(--cyan)}
+.notice{background:var(--soft);border-left:4px solid var(--blue);border-radius:0 8px 8px 0;padding:12px 16px;margin:14px 0;font-size:14px}
 .notice.error{background:#FDF6F5;border-left-color:#C0392B}
-.field label{display:block;font-size:12.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
-input[type=email],textarea{width:100%;border:1px solid var(--line);border-radius:3px;padding:11px 12px;font:inherit;font-size:15px;background:#FDFEFF;color:var(--ink)}
+.field label{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--slate);margin-bottom:6px}
+input[type=email],textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 13px;font:inherit;font-size:15px;background:#FBFDFF;color:var(--navy)}
 textarea{min-height:90px;resize:vertical}
-input:focus,textarea:focus,button:focus{outline:2px solid var(--brass);outline-offset:1px}
-.consent{color:var(--slate);font-size:13px;margin:10px 0 16px;line-height:1.5}
-.spectrum{display:flex;gap:6px;margin:20px 0 6px}
-.spectrum .seg{flex:1;text-align:center;padding:14px 4px 10px;border-radius:3px;background:var(--paper);border:1px solid var(--line);position:relative}
-.spectrum .seg .nm{font-family:Georgia,serif;font-size:15px;color:var(--slate)}
-.spectrum .seg.hit{border-width:2px}
+input:focus,textarea:focus,button:focus{outline:2px solid var(--cyan);outline-offset:1px}
+.consent{color:var(--slate);font-size:12.5px;margin:10px 0 16px;line-height:1.5}
+.spectrum{display:flex;gap:8px;margin:20px 0 6px}
+.spectrum .seg{flex:1;text-align:center;padding:16px 4px 12px;border-radius:10px;background:var(--pg);border:1px solid var(--line)}
+.spectrum .seg .nm{font-family:"Source Serif 4",Georgia,serif;font-size:15px;color:var(--slate)}
+.spectrum .seg.hit{border-width:2px;transform:scale(1.04);box-shadow:0 6px 16px rgba(27,42,65,.18)}
 .spectrum .seg.hit .nm{color:#fff;font-weight:600}
-.seg.hit.t0{background:var(--t1);border-color:var(--t1)}
-.seg.hit.t1{background:var(--t2);border-color:var(--t2)}
-.seg.hit.t2{background:var(--t3);border-color:var(--t3)}
-.seg.hit.t3{background:var(--t4);border-color:var(--t4)}
-.youare{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 4px}
-.tiername{font-family:Georgia,serif;font-size:34px;margin:2px 0 10px}
-.evidence li{margin:6px 0;font-size:15px}
-.disclaimer{color:var(--slate);font-size:13px;font-style:italic;margin-top:18px}
+.seg.hit.t0{background:var(--t0);border-color:var(--t0)}
+.seg.hit.t1{background:var(--t1);border-color:var(--t1)}
+.seg.hit.t2{background:var(--t2);border-color:var(--t2)}
+.seg.hit.t3{background:var(--t3);border-color:var(--t3)}
+.youare{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin:0 0 4px}
+.tiername{font-size:36px;margin:2px 0 10px}
+.barrow{display:flex;align-items:center;gap:10px;margin:7px 0}
+.barlabel{width:150px;font-size:12.5px;color:var(--slate);text-align:right;flex:none}
+.bartrack{flex:1;height:14px;background:var(--pg);border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+.barfill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .6s ease}
+.barfill.hi{background:linear-gradient(90deg,#3FA776,var(--ok))}
+.barfill.lo{background:linear-gradient(90deg,#D9B25F,var(--amber))}
+.bartag{width:64px;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;flex:none}
+.bartag.hi{color:var(--ok)} .bartag.lo{color:var(--amber)}
+.disclaimer{color:var(--slate);font-size:12.5px;font-style:italic;margin-top:18px}
 .ctarow{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 4px}
-.goalreflect{background:#EDF2F9;border-left:4px solid var(--ink);padding:12px 16px;margin:16px 0;font-size:15px}
-footer{background:var(--ink);color:#B9C4D6;margin-top:40px;padding:26px 20px;font-size:13px;text-align:center}
-footer .fbrand{font-family:Georgia,serif;color:#fff;font-size:16px;margin:0 0 4px}
-@media(max-width:560px){.card{padding:18px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}}
+.goalreflect{background:var(--soft);border-left:4px solid var(--blue);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:14.5px}
+footer{background:var(--navy);color:#B9C4D6;margin-top:40px;padding:26px 20px;font-size:13px;text-align:center}
+footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:16px;margin:0 0 4px}
+@media(max-width:560px){.card{padding:20px 16px}.spectrum{flex-wrap:wrap}.spectrum .seg{min-width:44%}.ctarow{flex-direction:column}.ctarow button{width:100%}.barlabel{width:104px;font-size:11px}.bartag{width:50px}}
 </style>
 </head>
 <body>
-<div class="topstrip"><b>FOUNDATION AI ADVISORY</b> · AI ADOPTION ASSESSMENT</div>
-<div class="progressbar" id="pbar"><div class="inner"><span class="count" id="pcount">0 of 13 answered</span><div class="ptrack"><div class="pfill" id="pfill"></div></div></div></div>
-<section class="screen active" id="scr-intro"><div class="wrap"><div class="card" style="border-top-width:4px">
-<p class="eyebrow">Self-assessment · About 3 minutes</p>
-<h1>Find out where you stand with AI</h1>
-<p class="dek">Thirteen quick questions about how AI fits into your work today and what you want to do next. In about three minutes, you&rsquo;ll receive one of four personalized AI-adoption profiles, along with a practical next step.</p>
-<p class="dek" style="font-size:14px">Enter your email at the end to reveal and receive your result.</p>
-<button id="btn-start">Start the assessment &rarr;</button>
+<div class="progressbar" id="pbar"><div class="inner"><span class="count" id="pcount">0 of 13 answered</span><div class="segs" id="psegs"></div></div></div>
+<section class="screen active" id="scr-intro"><div class="wrap"><div class="card">
+<div class="brand"><img src="https://foundationaiadvisory.com/assets/global-header-logo-wordmark.png" alt="Foundation AI Advisory"></div>
+<p class="eyebrow" style="text-align:center">Self-assessment · About 3 minutes</p>
+<h1 style="text-align:center">Find out where you stand with AI</h1>
+<p class="dek" style="text-align:center">Thirteen quick questions about how AI fits into your work today and what you want to do next. In about three minutes, you&rsquo;ll receive one of four personalized AI-adoption profiles, along with a practical next step.</p>
+<p class="dek" style="text-align:center;font-size:13.5px">Enter your email at the end to reveal and receive your result.</p>
+<div style="text-align:center;margin-top:6px"><button id="btn-start">Start the assessment &rarr;</button></div>
 </div></div></section>
 <section class="screen" id="scr-quiz"><div class="wrap">
 <div id="qlist"></div>
@@ -81,8 +95,9 @@ footer .fbrand{font-family:Georgia,serif;color:#fff;font-size:16px;margin:0 0 4p
 <button id="btn-continue">Continue &rarr;</button>
 </div></section>
 <section class="screen" id="scr-gate"><div class="wrap"><div class="card">
-<p class="eyebrow">Your result is ready</p>
-<h2>Where should we send it?</h2>
+<div class="brand"><img src="https://foundationaiadvisory.com/assets/global-header-logo-wordmark.png" alt="Foundation AI Advisory" style="height:38px"></div>
+<p class="eyebrow" style="text-align:center">Your result is ready</p>
+<h2 style="text-align:center">Where should we send it?</h2>
 <div class="field" style="margin:16px 0 4px"><label for="email">Email address</label>
 <input type="email" id="email" placeholder="you@company.com" autocomplete="email" inputmode="email"></div>
 <p class="consent">We&rsquo;ll use your email to show and send your result, and may follow up with relevant guidance from Foundation AI Advisory. No spam, and we never share or sell your address.</p>
@@ -90,17 +105,18 @@ footer .fbrand{font-family:Georgia,serif;color:#fff;font-size:16px;margin:0 0 4p
 <button id="btn-reveal">Reveal my result &rarr;</button>
 </div></div></section>
 <section class="screen" id="scr-result"><div class="wrap">
-<div class="card" style="border-top-width:4px">
-<p class="youare">Your AI-adoption profile</p>
-<p class="tiername" id="r-tier"></p>
+<div class="card">
+<div class="brand"><img src="https://foundationaiadvisory.com/assets/global-header-logo-wordmark.png" alt="Foundation AI Advisory" style="height:38px"></div>
+<p class="youare" style="text-align:center">Your AI-adoption profile</p>
+<p class="tiername" id="r-tier" style="text-align:center"></p>
 <div class="spectrum" id="r-spectrum"></div>
-<p style="color:var(--slate);font-size:12.5px;margin:2px 0 16px">Observer &rarr; Explorer &rarr; Operator &rarr; Integrator</p>
-<p id="r-desc" style="font-size:16px"></p>
-<h2 style="font-size:18px;margin-top:22px">What your answers show</h2>
-<ul class="evidence" id="r-evidence"></ul>
+<p style="color:var(--slate);font-size:12px;margin:6px 0 16px;text-align:center">Observer &rarr; Explorer &rarr; Operator &rarr; Integrator</p>
+<p id="r-desc" style="font-size:15.5px"></p>
+<h2 style="font-size:18px;margin-top:22px">Your profile at a glance</h2>
+<div id="r-bars"></div>
 <div class="goalreflect" id="r-goal" style="display:none"></div>
 <h2 style="font-size:18px;margin-top:22px">A practical next step</h2>
-<p id="r-next" style="font-size:15px"></p>
+<p id="r-next" style="font-size:14.5px"></p>
 <div class="ctarow"><button id="r-cta"></button>
 <button class="ghost" id="r-cta2">Explore Foundation AI</button></div>
 <p class="disclaimer">This is a directional snapshot based on how you answered today — not a test score.</p>
@@ -109,10 +125,10 @@ footer .fbrand{font-family:Georgia,serif;color:#fff;font-size:16px;margin:0 0 4p
 </div>
 <div class="card" id="painpoint-card">
 <h2 style="font-size:18px">What should AI take off your plate?</h2>
-<p style="color:var(--slate);font-size:14px">What&rsquo;s the most tedious or frustrating part of your work that you wish a tool could handle? A sentence or two is plenty. <em>(Optional)</em></p>
+<p style="color:var(--slate);font-size:13.5px">What&rsquo;s the most tedious or frustrating part of your work that you wish a tool could handle? A sentence or two is plenty. <em>(Optional)</em></p>
 <textarea id="pain-text" maxlength="2000" placeholder="e.g., Re-keying the same client data into three different systems every week…"></textarea>
 <div style="margin-top:10px"><button class="ghost" id="btn-pain">Send it to us</button>
-<span id="pain-thanks" style="display:none;color:var(--brass);font-size:14px;margin-left:10px">Thank you — received.</span></div>
+<span id="pain-thanks" style="display:none;color:var(--blue);font-size:14px;margin-left:10px">Thank you — received.</span></div>
 </div>
 </div></section>
 <footer><p class="fbrand">Foundation AI Advisory</p><p style="margin:0">Business First. AI Applied.</p></footer>
@@ -145,16 +161,30 @@ var html="";
 QUESTIONS.forEach(function(q,i){html+='<div class="card qcard" id="qc'+i+'"><p class="qnum">Question '+(i+1)+' of 13</p><p class="qtext">'+q.text+'</p>';q.opts.forEach(function(o,oi){html+='<label class="opt" data-q="'+i+'" data-o="'+oi+'"><input type="radio" name="q'+i+'" value="'+oi+'"><span>'+o+'</span></label>';});html+='</div>';});
 [Q12,Q13].forEach(function(q,k){var qi=11+k;html+='<div class="card qcard" id="qc'+qi+'"><p class="qnum">Question '+(qi+1)+' of 13</p><p class="qtext">'+q.text+'</p>';q.opts.forEach(function(pair){html+='<label class="opt" data-q="'+qi+'" data-letter="'+pair[0]+'"><input type="radio" name="q'+qi+'" value="'+pair[0]+'"><span>'+pair[1]+'</span></label>';});html+='</div>';});
 qlist.innerHTML=html;
+var psegs=document.getElementById("psegs");
+for(var s=0;s<13;s++){psegs.innerHTML+='<i></i>';}
 qlist.addEventListener("change",function(e){var lab=e.target.closest(".opt");if(!lab)return;var qi=+lab.dataset.q;lab.parentElement.querySelectorAll(".opt").forEach(function(el){el.classList.remove("selected");});lab.classList.add("selected");document.getElementById("qc"+qi).classList.remove("unanswered-flag");if(qi<11)state.answers[qi]=+lab.dataset.o;else if(qi===11)state.q12=lab.dataset.letter;else state.q13=lab.dataset.letter;updateProgress();});
 function answeredCount(){return state.answers.filter(function(v){return v!==null;}).length+(state.q12?1:0)+(state.q13?1:0);}
-function updateProgress(){var n=answeredCount();document.getElementById("pcount").textContent=n+" of 13 answered";document.getElementById("pfill").style.width=(n/13*100)+"%";}
+function updateProgress(){var n=answeredCount();document.getElementById("pcount").textContent=n+" of 13 answered";var segs=psegs.children;for(var i=0;i<13;i++){segs[i].className=i<n?"on":"";}}
 function show(id){document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("active");});document.getElementById(id).classList.add("active");window.scrollTo({top:0});document.getElementById("pbar").classList.toggle("active",id==="scr-quiz");}
 document.getElementById("btn-start").onclick=function(){show("scr-quiz");updateProgress();};
 document.getElementById("btn-continue").onclick=function(){var fm=null;state.answers.forEach(function(v,i){if(v===null){document.getElementById("qc"+i).classList.add("unanswered-flag");if(fm===null)fm=i;}});if(!state.q12){document.getElementById("qc11").classList.add("unanswered-flag");if(fm===null)fm=11;}if(!state.q13){document.getElementById("qc12").classList.add("unanswered-flag");if(fm===null)fm=12;}if(fm!==null){document.getElementById("unanswered-note").style.display="block";document.getElementById("qc"+fm).scrollIntoView({behavior:"smooth",block:"center"});return;}document.getElementById("unanswered-note").style.display="none";show("scr-gate");document.getElementById("email").focus();};
 function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);}
 document.getElementById("btn-reveal").onclick=function(){var em=document.getElementById("email").value.trim();if(!validEmail(em)){document.getElementById("email-err").style.display="block";return;}document.getElementById("email-err").style.display="none";state.email=em;renderResult();show("scr-result");submitLead();};
 document.getElementById("r-cta2").onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
-function renderResult(){var r=FAAScoring.scoreSubmission(state.answers,state.q12,state.q13);state.result=r;document.getElementById("r-tier").textContent=r.tier_public;var idx=FAAScoring.TIERS.indexOf(r.tier_public);document.getElementById("r-spectrum").innerHTML=FAAScoring.TIERS.map(function(t,i){return '<div class="seg'+(i===idx?' hit t'+i:'')+'"><span class="nm">'+t+'</span></div>';}).join("");var c=TIER_COPY[r.tier_public];document.getElementById("r-desc").textContent=c.desc;document.getElementById("r-next").textContent=c.next;var cta=document.getElementById("r-cta");cta.textContent=c.cta+" →";cta.onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};var scored=QUESTIONS.map(function(q,i){return{dim:q.dim,v:state.answers[i],label:q.opts[state.answers[i]]};});var strengths=scored.slice().sort(function(a,b){return b.v-a.v;}).filter(function(s){return s.v>=2;}).slice(0,2);var growth=scored.slice().sort(function(a,b){return a.v-b.v;})[0];var ev=[];strengths.forEach(function(s){ev.push("<li><b>"+s.dim+":</b> “"+s.label+"” — one of your strongest signals.</li>");});if(growth&&(!strengths.length||growth.v<2))ev.push("<li><b>"+growth.dim+":</b> your biggest room to grow — a small change here moves you furthest.</li>");if(!ev.length)ev.push("<li>Your answers were consistent across all eleven behaviors.</li>");document.getElementById("r-evidence").innerHTML=ev.join("");var g=GOAL_REFLECT[state.q13];var gr=document.getElementById("r-goal");if(g){gr.style.display="block";gr.innerHTML="You’re currently an <b>"+r.tier_public+"</b>, and your next goal is <b>"+g+"</b>. That’s exactly the right kind of gap to work on.";}else gr.style.display="none";}
+function renderResult(){var r=FAAScoring.scoreSubmission(state.answers,state.q12,state.q13);state.result=r;document.getElementById("r-tier").textContent=r.tier_public;var idx=FAAScoring.TIERS.indexOf(r.tier_public);document.getElementById("r-spectrum").innerHTML=FAAScoring.TIERS.map(function(t,i){return '<div class="seg'+(i===idx?' hit t'+i:'')+'"><span class="nm">'+t+'</span></div>';}).join("");var c=TIER_COPY[r.tier_public];document.getElementById("r-desc").textContent=c.desc;document.getElementById("r-next").textContent=c.next;var cta=document.getElementById("r-cta");cta.textContent=c.cta+" →";cta.onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
+var scored=QUESTIONS.map(function(q,i){return{dim:q.dim,v:state.answers[i]};});
+var sorted=scored.slice().sort(function(a,b){return b.v-a.v;});
+var hiDims=sorted.filter(function(s){return s.v>=2;}).slice(0,2).map(function(s){return s.dim;});
+var loDim=sorted[sorted.length-1].v<2?sorted[sorted.length-1].dim:null;
+document.getElementById("r-bars").innerHTML=scored.map(function(s){
+ var pct=Math.max(8,s.v/3*100);var cls="";var tag="";
+ if(hiDims.indexOf(s.dim)!==-1){cls=" hi";tag='<span class="bartag hi">Strength</span>';}
+ else if(s.dim===loDim){cls=" lo";tag='<span class="bartag lo">Focus</span>';}
+ else{tag='<span class="bartag"></span>';}
+ return '<div class="barrow"><span class="barlabel">'+s.dim+'</span><div class="bartrack"><div class="barfill'+cls+'" style="width:'+pct+'%"></div></div>'+tag+'</div>';
+}).join("");
+var g=GOAL_REFLECT[state.q13];var gr=document.getElementById("r-goal");if(g){gr.style.display="block";gr.innerHTML="You’re currently an <b>"+r.tier_public+"</b>, and your next goal is <b>"+g+"</b>. That’s exactly the right kind of gap to work on.";}else gr.style.display="none";}
 function payload(){return{idempotency_id:state.idem,email:state.email,submitted_at:new Date().toISOString(),answers:state.answers,answer_labels:QUESTIONS.map(function(q,i){return q.dim+": "+q.opts[state.answers[i]];}),q12_governance:state.q12,next_goal:state.q13,total_score:state.result.total_score,tier_public:state.result.tier_public,flags:state.result.flags,quiz_version:FAAScoring.QUIZ_VERSION,source:state.source};}
 function post(body){return fetch("/api/submit",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(res){if(!res.ok)throw new Error("HTTP "+res.status);return res.json();});}
 function submitLead(){post(payload()).catch(function(){return post(payload());}).then(function(data){state.saved=true;var note=document.getElementById("email-sent-note");if(data&&data.emailSent===false){note.textContent="We couldn’t send the email copy of your result — everything above is complete; feel free to print or screenshot it.";note.style.display="block";}else if(data&&data.emailSent===true){note.textContent="A copy of your result is on its way to "+state.email+".";note.style.display="block";}}).catch(function(){document.getElementById("save-fail-note").style.display="block";});}
