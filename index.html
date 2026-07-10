@@ -127,7 +127,7 @@ footer .fbrand{font-family:"Source Serif 4",Georgia,serif;color:#fff;font-size:1
 <h2 style="font-size:18px;margin-top:22px">A practical next step</h2>
 <p id="r-next" style="font-size:14.5px"></p>
 <div class="ctarow"><button id="r-cta"></button>
-<button class="ghost" id="r-cta2">Explore Foundation AI</button></div>
+<button class="ghost" id="r-cta2">Email the team</button></div>
 <p class="disclaimer">This is a directional snapshot based on how you answered today — not a test score.</p>
 <div class="notice" id="email-sent-note" style="display:none"></div>
 <div class="notice error" id="save-fail-note" style="display:none">We couldn&rsquo;t save your submission just now — your result above is complete and unaffected.</div>
@@ -181,7 +181,7 @@ document.getElementById("btn-start").onclick=function(){show("scr-quiz");updateP
 document.getElementById("btn-continue").onclick=function(){var fm=null;state.answers.forEach(function(v,i){if(v===null){document.getElementById("qc"+i).classList.add("unanswered-flag");if(fm===null)fm=i;}});if(!state.q12){document.getElementById("qc11").classList.add("unanswered-flag");if(fm===null)fm=11;}if(!state.q13){document.getElementById("qc12").classList.add("unanswered-flag");if(fm===null)fm=12;}if(fm!==null){document.getElementById("unanswered-note").style.display="block";document.getElementById("qc"+fm).scrollIntoView({behavior:"smooth",block:"center"});return;}document.getElementById("unanswered-note").style.display="none";show("scr-gate");document.getElementById("email").focus();};
 function validEmail(s){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s);}
 document.getElementById("btn-reveal").onclick=function(){var em=document.getElementById("email").value.trim();if(!validEmail(em)){document.getElementById("email-err").style.display="block";return;}document.getElementById("email-err").style.display="none";state.email=em;renderResult();show("scr-result");submitLead();};
-document.getElementById("r-cta2").onclick=function(){window.open("https://foundationaiadvisory.com","_blank");};
+document.getElementById("r-cta2").onclick=function(){var t=state.result?state.result.tier_public:"";location.href="mailto:blueprint@foundationaiadvisory.com?subject="+encodeURIComponent("AI Assessment follow-up"+(t?" - "+t+" profile":""));};
 function renderResult(){var r=FAAScoring.scoreSubmission(state.answers,state.q12,state.q13);state.result=r;document.getElementById("r-tier").textContent=r.tier_public;var idx=FAAScoring.TIERS.indexOf(r.tier_public);document.getElementById("r-spectrum").innerHTML=FAAScoring.TIERS.map(function(t,i){return '<div class="seg'+(i===idx?' hit t'+i:'')+'"><span class="nm">'+t+'</span></div>';}).join("");
 document.getElementById("r-legend").innerHTML=FAAScoring.TIERS.map(function(tn){return '<div class="lrow'+(tn===r.tier_public?' cur':'')+'"><span class="lname">'+tn+(tn===r.tier_public?' ◂':'')+'</span><span class="ldef">'+TIER_DEFS[tn]+'</span></div>';}).join("");
 var c=TIER_COPY[r.tier_public];document.getElementById("r-desc").textContent=c.desc;document.getElementById("r-next").textContent=c.next;var cta=document.getElementById("r-cta");cta.textContent=c.cta+" →";cta.onclick=function(){window.open(c.url,"_blank");};
