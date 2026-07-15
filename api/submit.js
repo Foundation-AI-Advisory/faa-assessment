@@ -23,6 +23,12 @@ const Q13_LABELS = {
   D: "D - Redesign team/business",
   E: "E - Not sure yet"
 };
+const QP_LABELS = {
+  A: "A - Rarely or never",
+  B: "B - Occasionally, one-off questions",
+  C: "C - Regularly, a few kinds of things",
+  D: "D - Woven into life, reusable setups"
+};
 
 async function airtable(method, path, body) {
   const res = await fetch(`${AT_API}/${process.env.AIRTABLE_BASE}/${path}`, {
@@ -56,6 +62,8 @@ function fieldsFromPayload(p) {
     answer_labels: (p.answer_labels || []).join("\n"),
     q12_governance: Q12_LABELS[p.q12_governance],
     next_goal: Q13_LABELS[p.next_goal],
+    personal_use: QP_LABELS[p.personal_use],
+    blocked_potential: !!p.blocked_potential,
     total_score: p.total_score,
     tier_public: p.tier_public,
     builder_signal: !!(p.flags && p.flags.builder_signal),
